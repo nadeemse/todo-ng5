@@ -1,0 +1,114 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="todolist not-done">
+             <h1>WElcome to todo list</h1>
+            </div>
+        </div>
+
+        
+    </div>
+  </div>
+  
+  <div class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form  [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+                              
+                      <div class="form-group">
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          formControlName="title" 
+                          placeholder="Title" />
+  
+                          <div 
+                              class="text-danger"
+                              *ngIf="todoForm.get('title').invalid && (todoForm.get('title').dirty || todoForm.get('title').touched)">
+                              <i>Title is required</i>
+                          </div>
+                      </div>
+  
+                      <div class="form-group">
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              formControlName="type" 
+                              placeholder="Enter Type TODO / TASK" />
+  
+                          <div 
+                              class="text-danger"
+                              *ngIf="todoForm.get('type').invalid && (todoForm.get('type').dirty || todoForm.get('type').touched)">
+                              <i>Type is required</i>
+                          </div>
+                      </div>
+  
+                      <div class="form-group">
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              formControlName="tags" 
+                              placeholder="Enter tags comma seprate" />
+  
+                          <div 
+                              class="text-danger"
+                              *ngIf="todoForm.get('tags').invalid && (todoForm.get('tags').dirty || todoForm.get('tags').touched)">
+                              <i>Tags are required</i>
+                          </div>
+                      </div>
+  
+                      <div class="form-group">
+                          <textarea 
+                              class="form-control" 
+                              formControlName="note" 
+                              placeholder="Enter tags comma seprate"></textarea>
+  
+                          <div 
+                              class="text-danger"
+                              *ngIf="todoForm.get('note').invalid && (todoForm.get('note').dirty || todoForm.get('note').touched)">
+                              <i>Note is required</i>
+                          </div>
+                      </div>
+  
+                      <div class="form-group">
+                          <input type="text"
+                          class="form-control"
+                          formControlName="due_at"
+                          [value]="todoForm.get('due_at').value | date:'y-MM-dd'"
+                          [minDate]="minDate"
+                          [maxDate]="maxDate"
+                          bsDatepicker>
+                      </div>
+  
+                  <div class="panel-footer">
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <p class="pull-right m-b-0">
+                                  <button 
+                                      type="button" 
+                                      class="btn btn-default waves-effect"
+                                      (click)="closeModal()">Close</button>
+                                  <button 
+                                      type="sumbit" 
+                                      class="btn btn-primary waves-effect waves-light"
+                                      [disabled]="!todoForm.valid">
+                                      Save Todo
+                                  </button>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+      
+                  </form>
+              </div>
+             
+            </div>
+          </div>
+        </div>

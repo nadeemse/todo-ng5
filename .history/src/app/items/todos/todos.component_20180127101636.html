@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+          <div class="todolist not-done">
+           <h1>Todos</h1>
+              
+                 <button class="btn btn-success" (click)="">Add Todo</button>
+                  
+                  <hr>
+                  <ul id="sortable" class="list-unstyled">
+                  <li class="ui-state-default" *ngFor="let item of items" >
+                      <div class="checkbox">
+                          <label> <input type="checkbox" value="" />
+                            {{item.title}} / {{item.type}}
+                          </label>
+                      </div>
+                      <p>{{item.description}}</p>
+                      <small>{{item.tags}}</small>
+                  </li>
+              </ul>
+              <div class="todo-footer">
+                  <strong><span class="count-todos">{{items.length}}</span></strong> Items Left
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="todolist">
+           <h1>Already Done</h1>
+              <ul id="done-items" class="list-unstyled">
+                  <li>
+                      {{item.title}} / {{item.type}}
+                    <button class="remove-item btn btn-default btn-xs pull-right">
+                      <span class="fa glyphicon-remove"></span>
+                    </button>
+                  </li>
+                  
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>

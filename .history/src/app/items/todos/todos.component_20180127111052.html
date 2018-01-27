@@ -1,0 +1,433 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+          <div class="todolist not-done">
+           <h1>Todos</h1>
+              
+                 <button class="btn btn-success" (click)="showForm()">Add Todo</button>
+                  
+                  <hr>
+                  <ul id="sortable" class="list-unstyled">
+                  <li class="ui-state-default" *ngFor="let item of items" >
+                      <div class="row">
+                          <div class="col-lg-8">
+                                <h6> {{item.title}} / {{item.type}} / ( {{item.created_at | date}})</h6>
+                                <p>{{item.note}}</p>
+                                <small>{{item.tags}}</small>
+                          </div>
+                          <div class="col-lg-4">
+                              <p class="pull-right">
+                                  <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
+                                  <button class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o "></i></button>
+                              </p>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+              <div class="todo-footer">
+                  <strong><span class="count-todos">{{items.length}}</span></strong> Items Left
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="todolist">
+           <h1>Already Done</h1>
+              <ul id="done-items" class="list-unstyled">
+                  <li *ngFor="let item of items">
+                      {{item.title}} / {{item.type}}
+                    <button class="remove-item btn btn-default btn-xs pull-right">
+                      <span class="fa fa-remove"></span>
+                    </button>
+                  </li>
+                  
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{model.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form  [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+                            <ul class="nav nav-tabs navtab-bg nav-justified">
+                
+                                <li class="active">
+                                    <a href="#branch-basic" data-toggle="tab" aria-expanded="false">
+                                        <span class="visible-xs"><i class="fa fa-home"></i></span>
+                                        <span class="hidden-xs">Branch</span>
+                                    </a>
+                                </li>
+                
+                                <li class="">
+                                    <a href="#branch-server" data-toggle="tab" aria-expanded="false">
+                                        <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                        <span class="hidden-xs">Branch Server</span>
+                                    </a>
+                                </li>
+                
+                                <li class="">
+                                    <a href="#branch-areas" data-toggle="tab" aria-expanded="false">
+                                        <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                        <span class="hidden-xs">Areas</span>
+                                    </a>
+                                </li>
+                
+                
+                            </ul>
+                            <div class="tab-content">
+                
+                                <div class="tab-pane active" id="branch-basic">
+                                    <div class="row">
+                
+                                        <div class="col-sm-6">
+                
+                                            <div class="form-group">
+                                              <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                formControlName="name" 
+                                                placeholder="Branch Name" />
+                
+                                              <div 
+                                                class="text-danger"
+                                                *ngIf="branchForm.get('name').invalid && (branchForm.get('name').dirty || branchForm.get('name').touched)">
+                                                  <i>Branch name is required</i>
+                                              </div>
+                                            </div>
+                
+                                        </div>
+                
+                                        <div class="col-sm-6">
+                
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control" 
+                                                  formControlName="opening_hours" 
+                                                  placeholder="11:00 AM - 12:00 AM (Midnight)" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('opening_hours').invalid && (branchForm.get('opening_hours').dirty || branchForm.get('opening_hours').touched)">
+                                                    <i>Opening hours are required</i>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                
+                                    </div>
+                
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    formControlName="open_time" 
+                                                    placeholder="Opening Time" />
+                                                    
+                                                <div 
+                                                    class="text-danger"
+                                                    *ngIf="branchForm.get('open_time').invalid && (branchForm.get('open_time').dirty || branchForm.get('open_time').touched)">
+                                                    <i>Opening Time is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    formControlName="close_time" 
+                                                    placeholder="Closing Time" />
+                                                    
+                                                <div 
+                                                    class="text-danger"
+                                                    *ngIf="branchForm.get('close_time').invalid && (branchForm.get('close_time').dirty || branchForm.get('close_time').touched)">
+                                                    <i>Closing Time is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <input 
+                                              type="text" 
+                                              class="form-control" 
+                                              formControlName="detailed_address" 
+                                              placeholder="Detail Address" />
+                                              
+                                            <div 
+                                              class="text-danger"
+                                              *ngIf="branchForm.get('detailed_address').invalid && (branchForm.get('detailed_address').dirty || branchForm.get('detailed_address').touched)">
+                                                <i>Detail Address is required</i>
+                                            </div>
+                
+                                        </div>
+                                      </div>
+                                    </div>
+                
+                
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control" 
+                                                  formControlName="city" 
+                                                  placeholder="Branch City" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('city').invalid && (branchForm.get('city').dirty || branchForm.get('city').touched)">
+                                                    <i>City is required</i>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                
+                                    <div class="row">
+                
+                                        <div class="col-sm-6">
+                                          <div class="form-group">
+                                              <input 
+                                                type="text" 
+                                                class="form-control" 
+                                                formControlName="lat" 
+                                                placeholder="Branch Latitude" />
+                                                
+                                              <div 
+                                                class="text-danger"
+                                                *ngIf="branchForm.get('lat').invalid && (branchForm.get('lat').dirty || branchForm.get('lat').touched)">
+                                                  <i>Map Longitude is required</i>
+                                              </div>
+                                          </div>
+                                        </div>
+                
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control" 
+                                                  formControlName="lng" 
+                                                  placeholder="Branch Longitude" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('lng').invalid && (branchForm.get('lng').dirty || branchForm.get('lng').touched)">
+                                                    <i>Map Longitude is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                
+                                </div>
+                
+                                <div class="tab-pane" id="branch-server">
+                                    
+                                  <div class="form-group">
+                                        <input 
+                                          type="text" 
+                                          class="form-control" 
+                                          formControlName="server_url" 
+                                          placeholder="Branch Server URL" />
+                                          
+                                        <div 
+                                          class="text-danger"
+                                          *ngIf="branchForm.get('server_url').invalid && (branchForm.get('server_url').dirty || branchForm.get('server_url').touched)">
+                                            <i>Server URL is required</i>
+                                        </div>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <input 
+                                          type="text" 
+                                          class="form-control"
+                                          formControlName="endpoint_url" 
+                                          placeholder="Branch Server Endpoint" />
+                                          
+                                        <div 
+                                          class="text-danger"
+                                          *ngIf="branchForm.get('endpoint_url').invalid && (branchForm.get('endpoint_url').dirty || branchForm.get('endpoint_url').touched)">
+                                            <i>Server end point is required</i>
+                                        </div>
+                                    </div>
+                
+                
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control"
+                                                  formControlName="endpoint_vendor" 
+                                                  placeholder="Vendor Name" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('endpoint_vendor').invalid && (branchForm.get('endpoint_vendor').dirty || branchForm.get('endpoint_vendor').touched)">
+                                                    <i>Server Vendor name is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control"
+                                                  formControlName="endpoint_user" 
+                                                  placeholder="Server username" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('endpoint_user').invalid && (branchForm.get('endpoint_user').dirty || branchForm.get('endpoint_user').touched)">
+                                                    <i>End point username is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control"
+                                                  formControlName="endpoint_password" 
+                                                  placeholder="End point password" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('endpoint_password').invalid && (branchForm.get('endpoint_password').dirty || branchForm.get('endpoint_password').touched)">
+                                                    <i>End point password is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                
+                
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control"
+                                                  formControlName="locationID" 
+                                                  placeholder="Branch server location" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('locationID').invalid && (branchForm.get('locationID').dirty || branchForm.get('locationID').touched)">
+                                                    <i>Branch server location id is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input 
+                                                  type="text" 
+                                                  class="form-control"
+                                                  formControlName="locationToken" 
+                                                  placeholder="Location Token" />
+                                                  
+                                                <div 
+                                                  class="text-danger"
+                                                  *ngIf="branchForm.get('locationToken').invalid && (branchForm.get('locationToken').dirty || branchForm.get('locationToken').touched)">
+                                                    <i>Branch location token is required</i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                
+                                </div>
+                
+                                <div class="tab-pane" id="branch-areas">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>Branch areas</p>
+                                        </div>
+                                    </div>
+                                    <div class="scopes" formArrayName="branchAreas">
+                                        
+                                        <div class="row" *ngFor="let area of branchForm.get('branchAreas').controls; let i = index;">
+                                            <span formGroupName="{{i}}">
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <input
+                                                            type='text'
+                                                            class="form-control"
+                                                            formControlName="name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <div class="form-group">
+                                                        <select class="form-control" formControlName="status">
+                                                            <option value="">Select Status</option>
+                                                            <option value="0">In Active</option>
+                                                            <option value="1">Active</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" 
+                                                        class="btn btn-sm btn-danger"
+                                                        (click)="deleteArea(i)">
+                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>                  
+                                                    </button>
+                                                </div>
+                                            </span>
+                                        </div>
+                
+                                        <div class="row">
+                                            <div class="col-sm-11">
+                                                <p class="pull-right">
+                                                    <button type="button" class="btn btn-info btn-sm" (click)="addArea()" >
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>        
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                                    
+                                </div>
+                
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p class="pull-right m-b-0">
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-default waves-effect"
+                                                (click)="closeModal()">Close</button>
+                                            <button 
+                                              type="sumbit" 
+                                              class="btn btn-primary waves-effect waves-light"
+                                              [disabled]="!branchForm.valid">
+                                              Save Branch
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                          </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>

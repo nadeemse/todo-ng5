@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { HttpResponse } from '@angular/common/http/src/response';
+
+@Injectable()
+export class HeaderInterceptor implements HttpInterceptor {
+  constructor() {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Clone the request to add the new header.
+    const headers = req.headers.set('Content-Type', 'application/json')
+                      .set('charset', 'UTF-8');
+    const token: any = localStorage.getItem('token');
+    if (token) {
+      headers.set('Authorization', token);
+    }
+    const withHeaders = req.clone({ headers: headers });
+    // Pass on the cloned request instead of the original request.
+    //return next.handle(withHeaders);
+
+    return next.handle(withHeaders)
+            .do(event => {
+                if (event instanceof HttpResponse) {
+                    this.logger.logDebug(event); // Headers are missing here
+                }
+            })
+            .catch((err: HttpErrorResponse) => {
+            // Do stuff
+           }
+
+  }
+}

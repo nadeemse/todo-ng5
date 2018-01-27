@@ -1,0 +1,52 @@
+<app-toast [message]="toast.message"></app-toast>
+
+    <div class="full-page login-page" data-color="" data-image="./assets/img/background/background-2.jpg">
+       <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 offset-sm-3 offset-md-4">
+
+                          <form [formGroup]="registerForm" (ngSubmit)="register()" class="login-form">
+                            <div class="card" data-background="color" data-color="blue">
+                                <div class="card-header">
+                                    <h3 class="card-title">Login to Emirates TODO</h3>
+                                </div>
+
+                                <div class="card-content">
+
+                                    <div class="form-group" [ngClass]="setClassUsername()">
+                                        <label>Username</label>
+                                        <input class="form-control" type="text" name="username" formControlName="username" placeholder="Username" autofocus>
+                                      </div>
+                                      
+                                      <div class="form-group" [ngClass]="setClassEmail()">
+                                          <label>Email address</label>
+                                        <input class="form-control" type="email" name="email" formControlName="email" placeholder="Email">
+                                      </div>
+                                      
+                                      <div class="form-group" [ngClass]="setClassPassword()">
+                                        <label>Email address</label>
+                                        <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
+                                      </div>  
+
+                                </div>
+
+                                <div class="card-footer text-center">
+
+                                    <button class="btn btn-fill btn-wd btn-block" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> Register</button>
+
+                                    <div class="forgot">
+                                        Already have an account ? 
+                                        <a [routerLink]="['/account/login']">Login</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="full-page-background" style="background-image: url(./assets/img/background/background-2.jpg) "></div>
+  </div>

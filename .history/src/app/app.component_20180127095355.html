@@ -1,0 +1,10 @@
+<!-- Left Bar --> 
+<app-left-bar ng></app-left-bar>
+
+ <div [ngClass]="{ 'main-panel': auth.loggedIn }">
+    <!-- Top bar --> 
+    <app-top-bar *ngIf="auth.loggedIn" ></app-top-bar>
+    
+    <router-outlet></router-outlet>
+    
+ </div>
